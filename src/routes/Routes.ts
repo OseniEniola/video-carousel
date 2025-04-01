@@ -6,7 +6,7 @@ import { Home } from "@/pages";
 const Routes: RouteListType[] = [
   {
     component: Root,
-    path: 'app',
+    path: '',
     children: [
       { path: '', component: Home, auth: false },
       { path: 'home', component: Home, auth: false },
