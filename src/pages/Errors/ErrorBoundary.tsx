@@ -1,6 +1,5 @@
-import React, { ReactNode, Component, ErrorInfo } from 'react';
-import { reportErrorLogic } from '@/utils/errorService.ts';
-import { Container } from '@/utils/styles.ts';
+import  { ReactNode, Component, ErrorInfo } from 'react';
+
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -36,7 +35,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       this.props.onError(error, errorInfo);
     }
     console.error('Error caught in ErrorBoundary:', error, errorInfo);
-    reportErrorLogic(error, errorInfo);
   }
 
   handleRetry = () => {
@@ -59,7 +57,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       }
 
       return (
-        <Container className='m-auto pt-40 container'>
+        <div className='m-auto pt-40 container'>
           <div className='flex items-center justify-center'>
             <div className='bg-white rounded-lg p-8 max-w-lg text-center'>
               <h1 className='text-2xl font-semibold text-red-500'>Something went wrong</h1>
@@ -110,7 +108,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
               )}
             </div>
           </div>
-        </Container>
+        </div>
       );
     }
 
