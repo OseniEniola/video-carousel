@@ -40,6 +40,7 @@ export const CarouselItem = tw.div`
 export const CarouselIcon = tw(Icon)`
     absolute
     cursor-pointer
+    carousel-interactive-icon
     z-10
     ${(props) => props.position && props.position}
 
