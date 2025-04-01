@@ -53,7 +53,7 @@ const ErrorPage = () => {
 
             <div className='flex-col justify-start items-start mt-4'>
               <Link
-                to={'/'}
+                to={'/home'}
                 className='self-stretch h-10 px-3 py-2 bg-[#00a1e3] rounded-lg border border-[#00a1e3] justify-center items-center gap-2 inline-flex'
               >
                 <div className='text-white text-sm font-semibold'>Back to home</div>

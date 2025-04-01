@@ -8,7 +8,7 @@ const NotFound = () => {
           <h1 className="display-1 fw-bold">404</h1>
           <h2 className="display-4 fw-bold">Page Not Found</h2>
           <div className="mt-4">
-            <Link to="/app/home" className="btn btn-primary px-4 py-2">
+            <Link to="/home" className="btn btn-primary px-4 py-2">
               Back to Home
             </Link>
           </div>

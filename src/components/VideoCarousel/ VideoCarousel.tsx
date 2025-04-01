@@ -17,13 +17,12 @@ const VideoCarousel: FC<VideoCarouselProps> = ({ videos }) => {
 
    //Play first video on mount
    useEffect(() => {
-    const firstVideo = videoRefs.current[0];
-    if (firstVideo) {
-       firstVideo.muted = true;
-       firstVideo.play().catch((error) => console.log("Autoplay blocked:", error));
-    }
+      const firstVideo = videoRefs.current[0];
+      if (firstVideo) {
+         firstVideo.muted = true;
+         firstVideo.play().catch((error) => console.log("Autoplay blocked:", error));
+      }
    }, []);
-
 
    //Funtion to toggle play and pause on active video
    const muteAndPauseVideo = (action: string, slideId: number) => {
@@ -44,8 +43,8 @@ const VideoCarousel: FC<VideoCarouselProps> = ({ videos }) => {
 
       resetVideo(activeSlide);
       setTimeout(() => {
-      setActiveSlide(slideId);
-      })
+         setActiveSlide(slideId);
+      });
    };
 
    //Function to set active video
@@ -77,6 +76,20 @@ const VideoCarousel: FC<VideoCarouselProps> = ({ videos }) => {
 
       let newScrollPosition = direction === "right" ? scrollLeft + scrollAmount : scrollLeft - scrollAmount;
 
+      const slides = Array.from(carouselRef.current.children) as HTMLElement[];
+      // Find the closest slide index to the current scroll position
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      slides.forEach((slide, index) => {
+         const distance = Math.abs(slide.offsetLeft - scrollLeft);
+         if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
+         }
+      });
+
+      setActiveVideo(closestIndex + 1)
       if (newScrollPosition >= scrollWidth - clientWidth) {
          newScrollPosition = 0; // Reset to beginning
       }
