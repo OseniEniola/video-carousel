@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { VideoCarouselProps } from "./types";
 import { Carousel, CarouselContainer, CarouselControl, CarouselControlWrap, CarouselIcon, CarouselItem, VideoTitle } from "./styles";
 import MuteIcon from "../../assets/images/icons/mute-icon.svg";
@@ -25,31 +25,39 @@ const VideoCarousel: FC<VideoCarouselProps> = ({ videos }) => {
    }, []);
 
    //Funtion to toggle play and pause on active video
-   //Funtion to toggle play and pause on active video
-   const muteAndPauseVideo = (action: "pause" | "mute", slideId: number) => {
-    const video = videoRefs.current[slideId];
+  
+const muteAndPauseVideo = useCallback(
+    (action: "pause" | "mute", slideId: number) => {
+       const video = videoRefs.current[slideId];
  
-    if (!video) return;
+       if (!video) return;
  
-    if (action === "pause") {
-       if (!video.paused) {
-          video.pause();
-       } else {
-          video.play();
+       // Pause the previous video if a new slide is selected
+       if (slideId !== activeSlide) {
+          resetVideo(activeSlide);
        }
-    }
  
-    if(slideId !== activeSlide){
-        resetVideo(activeSlide);
-    }
-    if (action === "mute") {
-       video.muted = !video.muted;
-    }
-      
-      setTimeout(() => {
-         setActiveSlide(slideId);
-      });
-   };
+       // Handle the pause action
+       if (action === "pause") {
+          if (!video.paused) {
+             video.pause();
+          } else {
+             video.play();
+          }
+       }
+ 
+       // Handle the mute action
+       if (action === "mute") {
+          video.muted = !video.muted;
+       }
+ 
+       // Update the active slide after a short delay
+       setTimeout(() => {
+          setActiveSlide(slideId);
+       }, 100);
+    },
+    [activeSlide, setActiveSlide] // Dependencies array
+ );
 
    //Function to set active video
    const setActiveVideo = (slideId: number) => {
