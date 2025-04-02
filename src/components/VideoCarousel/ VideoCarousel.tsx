@@ -112,7 +112,6 @@ const VideoCarousel: FC<VideoCarouselProps> = ({ videos }) => {
                ref={(el) => {
                   if (el) videoRefs.current[index] = el;
                }}
-               controls
                className="w-full cursor-pointer rounded-[0.6rem] object-cover h-full"
                src={video.link}
                loop
