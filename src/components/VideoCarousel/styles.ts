@@ -27,7 +27,7 @@ export const CarouselItem = tw.div`
     h-[20rem]
     w-[15rem]
     rounded-[0.7rem]
-    border-3
+    border-4
     border-trasnparent
     ${(p) => (p.$active && "border-primary-blue")}
     bg-video-bg

@@ -25,23 +25,27 @@ const VideoCarousel: FC<VideoCarouselProps> = ({ videos }) => {
    }, []);
 
    //Funtion to toggle play and pause on active video
-   const muteAndPauseVideo = (action: string, slideId: number) => {
-      const video = videoRefs.current[slideId];
-
-      if (video) {
-         switch (action) {
-            case "pause": {
-               video.paused ? video.play() : video.pause();
-               break;
-            }
-            case "mute": {
-               video.muted = !video.muted;
-               break;
-            }
-         }
-      }
-
-      resetVideo(activeSlide);
+   //Funtion to toggle play and pause on active video
+   const muteAndPauseVideo = (action: "pause" | "mute", slideId: number) => {
+    const video = videoRefs.current[slideId];
+ 
+    if (!video) return;
+ 
+    if (action === "pause") {
+       if (!video.paused) {
+          video.pause();
+       } else {
+          video.play();
+       }
+    }
+ 
+    if(slideId !== activeSlide){
+        resetVideo(activeSlide);
+    }
+    if (action === "mute") {
+       video.muted = !video.muted;
+    }
+      
       setTimeout(() => {
          setActiveSlide(slideId);
       });
